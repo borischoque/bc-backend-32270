@@ -4,7 +4,7 @@
 /***********************************************/
 /***********************************************/
 
-/* Definimos la clase USUARIO */
+/* Definimos la clase ProductManager */
 
 class ProductManager {
     constructor() {
