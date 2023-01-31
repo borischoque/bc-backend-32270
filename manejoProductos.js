@@ -87,7 +87,8 @@ class ProductManager {
             const validation3 = listaProductos.find(producto => producto.id === idBuscado)
 
             if (!validation3) {
-                return `NO existe el producto de id: ${idBuscado}`;
+                console.log(`NO existe el producto de id: ${idBuscado}`);
+                return false;
             }
             return listaProductos.find(({ id }) => id === idBuscado)
 
