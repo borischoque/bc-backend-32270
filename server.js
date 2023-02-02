@@ -4,14 +4,13 @@
 /***********************************************/
 /***********************************************/
 
-const { response } = require('express');
 const express = require('express');
 const ProductManager = require('./manejoProductos.js');
 const { escribirArchivo, leerArchivo } = require('./funcAux.js')
 const app = express();
 const PORT = 8081;
 
-const productos = new ProductManager('./data.txt');
+const data = new ProductManager('./data.txt');
 
 app.use(express.urlencoded({ extended: true }));
 
@@ -19,20 +18,17 @@ app.use(express.urlencoded({ extended: true }));
 /* Devuelve todos los prouctos ó limitados productos*/
 /***********************************************/
 app.get('/products', (req, res) => {
-    console.log(req.query);
-    const { limit } = req.query;
-    /* Si el archivo ya existe, lo leemos. */
-    const listaProductos = leerArchivo('./data.txt')
-    if (!limit) {
-        res.send(productos.getProducts())
-    } else if (listaProductos.length >= parseInt(limit)) {
-        /* Generamos un nuevo array auxiliar, aplicando la condición */
-        const productosFiltrados = listaProductos.filter(inProd => inProd.id <= parseInt(limit))
-        res.send(productosFiltrados)
-    } else {
-        res.send('El parametro indicado es mayor a la cantidad de producto disponibles, ingrese un valor menor ó NO INGRESE PARAMETRO');
-    }
 
+    const { limit } = req.query;
+
+    /* Si no se ingresa el parametro "limit" -> Se devuelve todos los productos */
+    if (!limit) return res.send(data.getProducts())
+
+    /* Leemos el archivo con los datos */
+    const listProducts = leerArchivo('./data.txt')
+    /* Si existe el parametro "limit" -> Se devuelve lo siguiente... */
+    const limitedProducts = listProducts.slice(0, parseInt(limit));
+    res.send(limitedProducts)
 })
 
 /***********************************************/
@@ -40,9 +36,12 @@ app.get('/products', (req, res) => {
 /***********************************************/
 app.get('/products/:idProd', (req, res) => {
     const { idProd } = req.params
-    productoSeleccion = productos.getProductById(parseInt(idProd))
-    if (!productoSeleccion) return res.send('No existe el producto.')
-    res.send(productoSeleccion)
+    productSelection = data.getProductById(parseInt(idProd))
+    /* Si el ID del producto no existe, devolvemos lo siguiente... */
+    if (!productSelection) return res.send('Product does not exist')
+
+    /* Si el ID existe, devolvemos los datos del producto */
+    res.send(productSelection)
 })
 
 
