@@ -42,5 +42,16 @@
     "status": "true",
     "category": "category 4",
     "id": 4
+  },
+  {
+    "title": "title modified 5",
+    "descripcion": "descripcion modified 5",
+    "price": "50",
+    "thumbnail": "thumbnail modified5",
+    "code": "code 5",
+    "stock": "5",
+    "status": "true",
+    "category": "category 5",
+    "id": 5
   }
 ]
