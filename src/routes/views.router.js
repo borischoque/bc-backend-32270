@@ -16,7 +16,7 @@ router.get('/products', (req, res) => {
     res.render('index', { listProducts })
 })
 
-router.get('/real', (req, res) => {
+router.get('/realTimeProducts', (req, res) => {
     const listProducts = dataSocket.getProducts();
     const tempData = [...listProducts]
     res.render('realTimeProducts', { tempData })
