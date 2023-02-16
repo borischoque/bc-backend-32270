@@ -1,12 +1,5 @@
 [
   {
-    "title": "1",
-    "descripcion": "1",
-    "price": "1",
-    "category": "1",
-    "id": 1
-  },
-  {
     "title": "2",
     "descripcion": "2",
     "price": "2",
@@ -14,17 +7,17 @@
     "id": 2
   },
   {
-    "title": "33",
-    "descripcion": "33",
-    "price": "33",
-    "category": "33",
+    "title": "titulo 1",
+    "descripcion": "descripción 2",
+    "price": "11",
+    "category": "categoria 3",
     "id": 3
   },
   {
-    "title": "44",
-    "descripcion": "44",
-    "price": "44",
-    "category": "44",
+    "title": "TITULO 1",
+    "descripcion": "DESCRIPCION 1",
+    "price": "11",
+    "category": "CATEGORIA 1",
     "id": 4
   }
 ]

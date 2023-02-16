@@ -52,4 +52,10 @@ socketServer.on('connection', socket => {
         socketServer.emit('agregarProducto', dataSocket.getProducts())
     })
 
+    socket.on('eliminar', idProd => {
+        dataSocket.deleteProduct(idProd)
+
+        socketServer.emit('agregarProducto', dataSocket.getProducts())
+    })
+
 })

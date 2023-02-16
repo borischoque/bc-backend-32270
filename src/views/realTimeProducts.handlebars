@@ -16,14 +16,16 @@
         <input type="submit" id="envioProducto" value="Agregar Producto">
 
     </form>
+    <br>
+    <hr>
 
-    {{!-- <h1>ELIMINAR UN PRODUCTO</h1>
+    <h1>ELIMINAR UN PRODUCTO</h1>
     <form>
-        <label>Ingrese el id del producto a eliminar</label> <br>
+        <label>ID del producto a eliminar</label> <br>
         <input type="text" name="title" id="productDelete"> <br>
 
-        <input type="submit" id="deleteProduct" value="Eliminar Producto">
-    </form> --}}
+        <input type="submit" id="elimnarProduct" value="ELIMINAR Producto">
+    </form>
 
     <h1>Todos los Productos</h1>
 
@@ -33,8 +35,8 @@
             <hr>
             <h3>PRODUCTO: {{title}}</h3>
             <h3>DESCRIPCION: {{descripcion}}</h3>
+            <h3>PRECIO: {{price}}</h3>
             <h3>CATEGORIA: {{category}}</h3>
-            <h3>STOCK: {{stock}}</h3>
             <hr>
         </div>
         {{/each}}

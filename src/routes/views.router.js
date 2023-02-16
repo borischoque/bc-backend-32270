@@ -3,6 +3,10 @@ const ProductManagerSocket = require('../utils/manejoProductos.js');
 const router = Router();
 
 const pathFileSocket = './dataSocket.txt';
+const pathFile = './data.txt';
+
+
+const data = new ProductManagerSocket(pathFile);
 
 const dataSocket = new ProductManagerSocket(pathFileSocket);
 
