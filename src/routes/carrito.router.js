@@ -1,6 +1,6 @@
 const { Router } = require('express');
-const CartManager = require('../manejoCarrito.js');
-const ProductManager = require('../manejoProductos.js');
+const CartManager = require('../utils/manejoCarrito.js');
+const ProductManager = require('../utils/manejoProductos.js');
 const router = Router();
 
 const pathFileCart = './cart.txt';

@@ -83,5 +83,9 @@
         "quantity": 1
       }
     ]
+  },
+  {
+    "idCarrito": 7,
+    "products": []
   }
 ]

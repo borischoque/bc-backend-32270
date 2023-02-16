@@ -1,6 +1,6 @@
 const { Router } = require('express');
-const ProductManager = require('../manejoProductos.js');
-const { escribirArchivo, leerArchivo } = require('../funcAux.js')
+const ProductManager = require('../utils/manejoProductos.js');
+const { escribirArchivo, leerArchivo } = require('../utils/funcAux.js')
 const router = Router();
 
 const pathFile = './data.txt';

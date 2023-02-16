@@ -26,16 +26,16 @@ class ProductManager {
             let listaProductos = leerArchivo(this.path)
 
             /* Validación por campo "code" */
-            const validation1 = listaProductos.find(producto => producto.code === item.code)
+            // const validation1 = listaProductos.find(producto => producto.code === item.code)
 
-            if (validation1) {
-                return 'El producto ya esta en la lista';
-            }
+            // if (validation1) {
+            //     return 'El producto ya esta en la lista';
+            // }
 
             /* Validación por campo vacio */
-            if (item.title === '' || item.description === '' || item.price === '' || item.thumbnail === '' || item.code === '' || item.stock === '') {
-                return `Debe completar todos los campos `
-            }
+            // if (item.title === '' || item.description === '' || item.price === '' || item.thumbnail === '' || item.code === '' || item.stock === '') {
+            //     return `Debe completar todos los campos `
+            // }
 
             /* Ingreso de producto */
             if (listaProductos.length === 0) {

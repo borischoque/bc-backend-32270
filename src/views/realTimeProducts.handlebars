@@ -1,0 +1,45 @@
+<div>
+    <h1>AGREGAR UN PRODUCTO</h1>
+    <form>
+        <label>Titulo</label> <br>
+        <input type="text" name="title" id="title"> <br>
+
+        <label>Descripcion</label> <br>
+        <input type="text" name="description" id="description"> <br>
+
+        <label>Precio</label> <br>
+        <input type="number" name="price" id="price"> <br>
+
+        <label>Categoria</label> <br>
+        <input type="text" name="category" id="category"> <br>
+
+        <input type="submit" id="envioProducto" value="Agregar Producto">
+
+    </form>
+
+    {{!-- <h1>ELIMINAR UN PRODUCTO</h1>
+    <form>
+        <label>Ingrese el id del producto a eliminar</label> <br>
+        <input type="text" name="title" id="productDelete"> <br>
+
+        <input type="submit" id="deleteProduct" value="Eliminar Producto">
+    </form> --}}
+
+    <h1>Todos los Productos</h1>
+
+    <div id="container">
+        {{#each tempData}}
+        <div>
+            <hr>
+            <h3>PRODUCTO: {{title}}</h3>
+            <h3>DESCRIPCION: {{descripcion}}</h3>
+            <h3>CATEGORIA: {{category}}</h3>
+            <h3>STOCK: {{stock}}</h3>
+            <hr>
+        </div>
+        {{/each}}
+    </div>
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/public/js/index.js"></script>
