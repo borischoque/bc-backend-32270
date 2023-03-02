@@ -1,13 +1,13 @@
 const { Router } = require('express');
-const CartManager = require('../utils/manejoCarrito.js');
-const ProductManager = require('../utils/manejoProductos.js');
+// const CartManager = require('../utils/manejoCarrito.js');
+// const ProductManager = require('../utils/manejoProductos.js');
 const router = Router();
 
-const pathFileCart = './cart.txt';
-const pathFileData = './data.txt';
+// const pathFileCart = './cart.txt';
+// const pathFileData = './data.txt';
 
-const cartProd = new CartManager(pathFileCart);
-const data = new ProductManager(pathFileData);
+// const cartProd = new CartManager(pathFileCart);
+// const data = new ProductManager(pathFileData);
 
 /***********************************************/
 /* Crear un nuevo carrito*/
