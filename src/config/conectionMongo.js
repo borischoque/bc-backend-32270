@@ -1,4 +1,6 @@
-const { connect } = require('mongoose')
+const { connect, set } = require('mongoose')
+
+set("strictQuery", false);
 
 const ConnectionDB = async () => {
     try {

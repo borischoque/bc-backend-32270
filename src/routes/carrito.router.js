@@ -1,57 +1,72 @@
 const { Router } = require('express');
-// const CartManager = require('../utils/manejoCarrito.js');
-// const ProductManager = require('../utils/manejoProductos.js');
 const router = Router();
-
-// const pathFileCart = './cart.txt';
-// const pathFileData = './data.txt';
-
-// const cartProd = new CartManager(pathFileCart);
-// const data = new ProductManager(pathFileData);
+const cartModel = require('../models/carts.model.js');
 
 /***********************************************/
 /* Crear un nuevo carrito*/
 /***********************************************/
-router.post('/', (req, res) => {
-    /* Creamos un nuevo carrito */
-    cartProd.createProductCart();
-    res.status(200).send('New Cart created...');
+router.post('/', async (req, res) => {
+    try {
+        const newCart = await cartModel.create({})
+        /* Respuesta */
+        res.status(201).send({
+            message: 'Cart Created',
+            newCart
+        })
+    } catch (error) {
+        /* Si el ID del carrito no existe, devolvemos lo siguiente... */
+        res.status(200).send({
+            message: 'Cart no was created',
+            error
+        })
+    }
 
 })
 
 /***********************************************/
 /* Carga de productos en carrito*/
 /***********************************************/
-router.post('/:cid/product/:pid', (req, res) => {
+router.post('/:cid/product/:pid', async (req, res) => {
     const { cid, pid } = req.params
-    /* Validamos el que producto existe */
-    const productSelection = data.getProductById(parseInt(pid))
-    /* Si el ID del producto no existe, devolvemos lo siguiente... */
-    if (!productSelection) return res.send('Product does not exist')
+    try {
+        /* Se define el array con los nuevos datos */
+        const addProduct = { idProducto: pid, quantity: 1 }
+        /* Si el producto con el ID existe, actualizamos los campos */
+        const cartUpdate = await cartModel.updateOne({ _id: cid }, { $push: { productsCart: addProduct } })
+        /* Respuesta */
+        return res.status(200).send({
+            message: 'We Update information about a Cart',
+            cartUpdate
+        })
 
-    /* Validamos que el carrito existe */
-    const listProd = cartProd.getProductCartById(parseInt(cid));
-    /* Si el ID del producto no existe, devolvemos lo siguiente... */
-    if (!listProd) return res.send('Cart does not exist')
-
-    /* Agregamos el producto al carrito */
-    cartProd.addProductCart(parseInt(cid), parseInt(pid));
-    res.status(200).send('New Product add to Cart');
-
+    } catch (error) {
+        /* Si el ID del carrito no existe, devolvemos lo siguiente... */
+        res.status(200).send({
+            message: 'Cart not was Updated',
+            error
+        })
+    }
 })
 
 /***********************************************/
 /* Listado de productos en carrito*/
 /***********************************************/
-router.get('/:cid', (req, res) => {
+router.get('/:cid', async (req, res) => {
     const { cid } = req.params
-    /* Lista de productos en carrito */
-    const listProd = cartProd.getProductCartById(parseInt(cid));
-    /* Si el ID del producto no existe, devolvemos lo siguiente... */
-    if (!listProd) return res.send('Cart does not exist')
-
-    /* Si el ID existe, devolvemos los datos del producto */
-    res.status(200).send(listProd.products)
+    try {
+        const ListCompleteCart = await cartModel.find({ _id: cid })
+        /* Respuesta */
+        return res.status(200).send({
+            message: 'We show all products in the Cart',
+            ListCompleteCart
+        })
+    } catch (error) {
+        /* Si el ID del carrito no existe, devolvemos lo siguiente... */
+        res.status(200).send({
+            message: 'Cart no was exist',
+            error
+        })
+    }
 
 })
 

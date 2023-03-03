@@ -122,10 +122,10 @@ router.post('/', async (req, res) => {
 router.put('/:idProd', async (req, res) => {
     const { idProd } = req.params;
     /* Tomamos los datos del body */
-    const { title } = req.body;
+    const { title, description, code, price, status, stock, category, thumbnails } = req.body;
     try {
         /* Si el producto con el ID existe, actualizamos los campos */
-        const productChanged = await productModel.updateOne({ _id: idProd }, { title })
+        const productChanged = await productModel.updateOne({ _id: idProd }, { title, description, code, price, status, stock, category, thumbnails })
         /* Respuesta */
         res.status(200).send({
             message: 'We changed information about a product',
