@@ -30,44 +30,35 @@ router.post('/', async (req, res) => {
 router.post('/:cid/product/:pid', async (req, res) => {
     const { cid, pid } = req.params
     try {
-        /* Validamos el que producto existe */
-        try {
-            const productInput = await productModel.find({ _id: pid });
-        } catch (error) {
-            res.status(200).send({
-                message: 'Product does not exist',
-                error
+        const productInput = await productModel.findOne({ _id: pid });
+        if (!productInput) {
+            return res.status(404).send({
+                message: 'Product does not exist'
             })
         }
-        /* Validamos el que carrito existe */
-        try {
-            const cartInput = await cartModel.find({ _id: cid });
-        } catch (error) {
-            res.status(200).send({
-                message: 'Cart does not exist',
-                error
-            })
-        }
-        /* Buscamos si el producto ya existe en el carrito seleccionado */
-        const productExist = await cartModel.find({ $and: [{ _id: cid }, { "productsCart.idProducto": pid }] })
-        if (!productExist) {
-            const cartUpdate = await cartModel.updateOne({ $and: [{ _id: cid }, { "productsCart.idProducto": pid }] }, { $inc: { "productsCart.quantity": 1 } })
-            return res.status(200).send({
-                message: 'Product exist, was updated field quantity',
-                cartUpdate
-            })
 
+        const cartInput = await cartModel.findOne({ _id: cid });
+        if (!cartInput) {
+            return res.status(404).send({
+                message: 'Cart does not exist'
+            })
+        }
+
+        const productExist = await cartModel.findOne({ _id: cid, "productsCart.idProducto": pid })
+        if (productExist) {
+            await cartModel.updateOne({ _id: cid, "productsCart.idProducto": pid }, { $inc: { "productsCart.$.quantity": 1 } })
+            return res.status(200).send({
+                message: 'Product exist, was updated field quantity'
+            })
         } else {
-            const cartAdd = await cartModel.updateOne({ _id: cid }, { $push: { productsCart: { idProducto: pid } } })
+            await cartModel.updateOne({ _id: cid }, { $push: { productsCart: { idProducto: pid, quantity: 1 } } })
             return res.status(200).send({
-                message: 'Product was added to Cart',
-                cartAdd
+                message: 'Product was added to Cart'
             })
         }
-
     } catch (error) {
         /* Si el ID del carrito no existe, devolvemos lo siguiente... */
-        res.status(200).send({
+        res.status(500).send({
             message: 'Cart not was Updated',
             error
         })
